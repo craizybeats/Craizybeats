@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XEBQMT4RKR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XEBQMT4RKR');
+</script>
+<meta charset="UTF-8">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CraizyBeats — Turning Visions Into Visuals</title>
+<meta name="description" content="CraizyBeats — official music, videos, and merch. Listen now on Spotify and YouTube.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { background:#000; font-family:'Rajdhani', sans-serif; overflow-x:hidden; }
+
+  /* ============ DESKTOP (baked-image hero with tracked button overlay) ============ */
+  .desktop-view { display:block; }
+  .desktop-view .hero {
+    position:relative;
+    width:100vw;
+    height:100vh;
+    height:100dvh;
+    overflow:hidden;
+  }
+  .desktop-view .hero img {
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:contain;
+    object-position:center;
+  }
+  .desktop-view .hero a {
+    position:absolute;
+    display:block;
+  }
+
+  /* ============ MOBILE (full video hero, buttons baked in, invisible overlay links) ============ */
+  .mobile-view { display:none; }
+  .mobile-view .m-hero {
+    position:relative;
+    width:100vw;
+    height:100vh;
+    height:100dvh;
+    overflow:hidden;
+    background:#000;
+  }
+  .mobile-view .m-hero video {
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:contain;
+    object-position:center;
+  }
+  .mobile-view .m-hero a {
+    position:absolute;
+    display:block;
+  }
+
+  /* ============ BREAKPOINT SWITCH ============ */
+  @media (max-width: 767px) {
+    .desktop-view { display:none; }
+    .mobile-view { display:block; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- DESKTOP -->
+  <div class="desktop-view">
+    <div class="hero" id="hero">
+      <img id="heroImg" src="hero.png" alt="CraizyBeats" fetchpriority="high">
+      <a class="btn-youtube" href="https://music.youtube.com/channel/UC9tcLMA7AIdu6GyeSs5LV9A?si=zpz2fxPeJTHoj959" target="_blank" rel="noopener" aria-label="Play now on YouTube"></a>
+      <a class="btn-spotify" href="https://open.spotify.com/artist/1O36Su6NzY1pGG9uJsVTBL?si=fgD-eQmuRDGDUOI1BqqDuA&utm_source=copy-link" target="_blank" rel="noopener" aria-label="Listen now on Spotify"></a>
+    </div>
+  </div>
+
+  <!-- MOBILE -->
+  <div class="mobile-view">
+    <div class="m-hero" id="mHero">
+      <video id="mVideo" autoplay muted loop playsinline poster="hero-mobile-poster.jpg">
+        <source src="hero-mobile.mp4" type="video/mp4">
+      </video>
+      <a class="m-btn-youtube" href="https://music.youtube.com/channel/UC9tcLMA7AIdu6GyeSs5LV9A?si=zpz2fxPeJTHoj959" target="_blank" rel="noopener" aria-label="Play now on YouTube"></a>
+      <a class="m-btn-spotify" href="https://open.spotify.com/artist/1O36Su6NzY1pGG9uJsVTBL?si=fgD-eQmuRDGDUOI1BqqDuA&utm_source=copy-link" target="_blank" rel="noopener" aria-label="Listen now on Spotify"></a>
+    </div>
+  </div>
+
+  <script>
+    function fitOverlay(container, mediaW, mediaH, buttons) {
+      if (!container || container.clientWidth === 0) return;
+      const cw = container.clientWidth;
+      const ch = container.clientHeight;
+
+      const scale = Math.min(cw / mediaW, ch / mediaH);
+      const renderedW = mediaW * scale;
+      const renderedH = mediaH * scale;
+      const offsetX = (cw - renderedW) / 2;
+      const offsetY = (ch - renderedH) / 2;
+
+      buttons.forEach(({ el, b }) => {
+        if (!el) return;
+        el.style.left   = (b.x * scale + offsetX) + 'px';
+        el.style.top    = (b.y * scale + offsetY) + 'px';
+        el.style.width  = (b.w * scale) + 'px';
+        el.style.height = (b.h * scale) + 'px';
+      });
+    }
+
+    // ---- Desktop ----
+    const DESKTOP_BUTTONS = {
+      youtube: { x: 463, y: 527, w: 322, h: 71 },
+      spotify: { x: 857, y: 527, w: 350, h: 71 }
+    };
+    function positionDesktop() {
+      fitOverlay(document.getElementById('hero'), 1672, 941, [
+        { el: document.querySelector('.btn-youtube'), b: DESKTOP_BUTTONS.youtube },
+        { el: document.querySelector('.btn-spotify'), b: DESKTOP_BUTTONS.spotify }
+      ]);
+    }
+    window.addEventListener('resize', positionDesktop);
+    window.addEventListener('orientationchange', positionDesktop);
+    const heroImg = document.getElementById('heroImg');
+    if (heroImg.complete) positionDesktop();
+    else heroImg.addEventListener('load', positionDesktop);
+
+    // ---- Mobile (video, 720x1280 native) ----
+    const MOBILE_BUTTONS = {
+      youtube: { x: 168, y: 940, w: 381, h: 113 },
+      spotify: { x: 170, y: 1060, w: 383, h: 108 }
+    };
+    function positionMobile() {
+      fitOverlay(document.getElementById('mHero'), 720, 1280, [
+        { el: document.querySelector('.m-btn-youtube'), b: MOBILE_BUTTONS.youtube },
+        { el: document.querySelector('.m-btn-spotify'), b: MOBILE_BUTTONS.spotify }
+      ]);
+    }
+    window.addEventListener('resize', positionMobile);
+    window.addEventListener('orientationchange', positionMobile);
+    const mVideo = document.getElementById('mVideo');
+    if (mVideo) {
+      if (mVideo.readyState >= 1) positionMobile();
+      else mVideo.addEventListener('loadedmetadata', positionMobile);
+      window.addEventListener('load', positionMobile);
+    }
+  </script>
+</body>
+</html>
