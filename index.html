@@ -12,6 +12,8 @@
 </script>
 <meta charset="UTF-8">
 <link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000000">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CraizyBeats — Turning Visions Into Visuals</title>
 <meta name="description" content="CraizyBeats — official music, videos, and merch. Listen now on Spotify and YouTube.">
@@ -132,8 +134,8 @@
 
     // ---- Mobile (video, 720x1280 native) ----
     const MOBILE_BUTTONS = {
-      youtube: { x: 168, y: 940, w: 381, h: 113 },
-      spotify: { x: 170, y: 1060, w: 383, h: 108 }
+      youtube: { x: 160, y: 992, w: 383, h: 67 },
+      spotify: { x: 154, y: 1092, w: 391, h: 109 }
     };
     function positionMobile() {
       fitOverlay(document.getElementById('mHero'), 720, 1280, [
